@@ -2,7 +2,7 @@
   "name": "reggaex",
   "version": "1.0.0",
   "description": "Colección de directivas Angular para la validación de formularios utilizando regex (Regular expression).",
-  "main": "Reggaex.js",
+  "main": "dist/Reggaex.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Diegoztag/Reggaex.git"
@@ -11,7 +11,10 @@
     "angular",
     "regex",
     "regular-expression",
-    "directive"
+    "directive",
+    "library",
+    "frontend",
+    "open source"
   ],
   "author": "Diego Zazueta <Diegoztag@gmail.com>",
   "license": "MIT",

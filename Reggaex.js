@@ -1,9 +1,7 @@
 (function() {
 'use strict';
 
-  angular.module('reggaex.directives', [])
-
-  .directive('text', function () {
+  function text() {
     return {
       require: 'ngModel',
       link: function(scope, element, attrs, ngModelCtrl) {
@@ -22,9 +20,9 @@
         ngModelCtrl.$parsers.push(onlyText);
       }
     };
-  })
+  }
 
-  .directive('number', function () {
+  function number() {
     return {
       require: 'ngModel',
       link: function (scope, element, attrs, ngModelCtrl) {
@@ -43,9 +41,9 @@
         ngModelCtrl.$parsers.push(onlyNumber);
       }
     };
-  })
+  }
 
-  .directive('decimal', function () {
+  function decimal() {
     return {
       require: 'ngModel',
       link: function (scope, element, attrs, ngModelCtrl) {
@@ -56,14 +54,14 @@
             if (inputValue[0] === '.') {
               transformInput = inputValue.replace(/[^0-9]/g, '');
             }else {
-              var decimalCheck = transformInput.split('.');
+              transformInput = inputValue.replace(/[^0-9\.]+?([^0-9]{1,2})?$/, '');
+            }
 
-              transformInput = inputValue.replace(/^\D+(?:\.\D)?$/, '');
+            var decimalCheck = transformInput.split('.');
 
-              if(!angular.isUndefined(decimalCheck[1])) {
-                decimalCheck[1] = decimalCheck[1].slice(0,2);
-                transformInput = decimalCheck[0] + '.' + decimalCheck[1];
-              }
+            if(!angular.isUndefined(decimalCheck[1])) {
+              decimalCheck[1] = decimalCheck[1].slice(0,2);
+              transformInput = decimalCheck[0] + '.' + decimalCheck[1];
             }
 
             if (transformInput !== inputValue) {
@@ -77,9 +75,9 @@
         ngModelCtrl.$parsers.push(onlyDecimal);
       }
     };
-  })
+  }
 
-  .directive('upper', function () {
+  function upper() {
     return {
       require: 'ngModel',
       link: function (scope, element, attrs, ngModelCtrl) {
@@ -98,9 +96,9 @@
         ngModelCtrl.$parsers.push(toUpper);
       }
     };
-  })
+  }
 
-  .directive('lower', function () {
+  function lower() {
     return {
       require: 'ngModel',
       link: function (scope, element, attrs, ngModelCtrl) {
@@ -119,6 +117,9 @@
         ngModelCtrl.$parsers.push(toLower);
       }
     };
-  });
+  }
+  angular.module('reggaex').directive('text', 'number', 'decimal', 'upper', 'lower', [
+    text, number, decimal, upper, lower
+  ]);
 
 })();
